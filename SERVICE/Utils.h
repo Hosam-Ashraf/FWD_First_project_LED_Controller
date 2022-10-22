@@ -1,5 +1,5 @@
 /*****************************************************
-*Author :Moatasem
+*Author :HOSAM
 *Date:   12/10/2018
 *Version: v02
 *Brief: Macros module

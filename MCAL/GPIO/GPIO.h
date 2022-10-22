@@ -1,36 +1,44 @@
+#ifndef GPIO_H_
+#define GPIO_H_
 
-
-#ifndef GPIO_H
-#define GPIO_H
-
+#include "TM4C123GH6PM.h"
 #include "Utils.h"
-#include "STD_Types.h"
 
-typedef struct
+typedef enum{
+	PORT_A_CLK_EN=0,
+	PORT_B_CLK_EN,
+	PORT_C_CLK_EN,
+	PORT_D_CLK_EN,
+	PORT_E_CLK_EN,
+	PORT_F_CLK_EN
+}enGPIO_Clock_Gating_Control;
+
+typedef enum{
+	PIN0=0,
+	PIN1,
+	PIN2,
+	PIN3,
+	PIN4,
+	PIN5,
+	PIN6,
+	PIN7
+}enGPIO_PIN;
+typedef enum
 {
-	volatile uint32 CRL;       /*!< GPIO port mode CONTROL LOW register,     Address offset: 0x00      */
-  volatile uint32 CRH;       /*!< GPIO port mode CONTROL HIGH register,    Address offset: 0x04      */
-	volatile uint32 IDR;       /*!< GPIO port input data register,           Address offset: 0x08      */
-	volatile uint32 ODR;       /*!< GPIO port output data register,          Address offset: 0x0C      */
-	volatile uint16 BSRR;      /*!< GPIO port bit set/reset low register,    Address offset: 0x10      */
-	volatile uint16 BRR;       /*!< GPIO port bit set/reset high register,   Address offset: 0x14      */
-	volatile uint32 LCKR;      /*!< GPIO port configuration lock register,   Address offset: 0x18      */
-}GPIO_TypeDef;
+	INPUT=0,
+	OUTPUT
+}enDIR;
 
-/* Peripheral base address in the alias region */
-#define PERIPH_BASE           ((uint32)0x40000000)
 
-/* GPIO Base */
-#define GPIOE_BASE          (PERIPH_BASE + 0x11800)
-#define GPIOD_BASE          (PERIPH_BASE + 0x11400)
-#define GPIOC_BASE          (PERIPH_BASE + 0x11000)
-#define GPIOB_BASE          (PERIPH_BASE + 0x10C00)
-#define GPIOA_BASE          (PERIPH_BASE + 0x10800)
+typedef enum
+{
+	LOW=0,
+	HIGH,
+	TOGGLE
+}enSTATUS;
 
-#define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
-#define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
-#define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
-#define GPIOD               ((GPIO_TypeDef *) GPIOD_BASE)
-#define GPIOE               ((GPIO_TypeDef *) GPIOE_BASE)
+void GPIO_Init(enGPIO_Clock_Gating_Control port,enGPIO_PIN pin,enDIR direction);
+void GPIO_SET_BIT(enGPIO_Clock_Gating_Control port,enGPIO_PIN pin,enSTATUS status);
+
 
 #endif
